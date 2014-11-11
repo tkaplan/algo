@@ -24,7 +24,7 @@ class NetworkModule::CrawlTickers
   public:
     explicit CrawlTickers();
     int downloadTickers();
-    int getTickersForLetter(std::ostream&, std::string, char);
+    int getTickersForLetter(std::ostream&, const std::string&, const char&);
     
     std::map<std::string, ticker> tickers;
 };
