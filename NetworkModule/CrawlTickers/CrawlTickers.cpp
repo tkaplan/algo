@@ -16,10 +16,15 @@ namespace NetworkModule
 
   }
 
-  /* Return a pointer to our ticker map */
-  std::map<std::string, ticker>* CrawlTickers::getTickers ()
+  CrawlTickers::~CrawlTickers()
   {
-    return &tickers;
+
+  }
+
+  /* Return a pointer to our ticker map */
+  std::map<std::string, ticker*> CrawlTickers::getTickers ()
+  {
+    return tickers;
   }
 
   /*  Return values are http returns */
@@ -33,7 +38,7 @@ namespace NetworkModule
     {
       std::string file = "ticker";
       char letter = (char)((int)'A' + i);
-      file += letter;
+      //file += letter;
       file += ".csv";
       getTickersForLetter(fileStream, file, letter);
     }
@@ -44,7 +49,7 @@ namespace NetworkModule
   int CrawlTickers::getTickersForLetter(std::shared_ptr<ostream> fileStream, std::string file, char letter)
   {
     // Open stream to output file.
-    pplx::task<void> requestTask = fstream::open_ostream(U(file)).then([=](ostream outFile)
+    pplx::task<void> requestTask = fstream::open_ostream(U(file), std::ofstream::app).then([=](ostream outFile)
     {
       *fileStream = outFile;
       // Create http_client to send the request.
@@ -61,6 +66,13 @@ namespace NetworkModule
     .then([=](http_response response)
     {
       printf("Received response status code:%u\n", response.status_code());
+      // Open up iostream to read into structure
+
+      // Allocate ticker struct
+
+      // Loop through lines to add to tick struct
+
+      // Assign pointer to struct
 
       // Write response body into the file.
       return response.body().read_to_end(fileStream->streambuf());

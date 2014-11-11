@@ -28,10 +28,11 @@ struct NetworkModule::ticker{
 class NetworkModule::CrawlTickers
 {
   private:
-    std::map<std::string, ticker> tickers;
+    std::map<std::string, ticker*> tickers;
   public:
     CrawlTickers();
-    std::map<std::string, ticker>* getTickers();
+    ~CrawlTickers();
+    std::map<std::string, ticker*> getTickers();
     int downloadTickers();
     int getTickersForLetter(std::shared_ptr<ostream>, std::string, char);
 };
