@@ -1,0 +1,2 @@
+#define Algo_VERSION_MAJOR @Algo_VERSION_MAJOR@
+#define Algo_VERSION_MINOR @Algo_VERSION_MINOR@
