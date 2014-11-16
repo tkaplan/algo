@@ -20,15 +20,10 @@ BOOST_AUTO_TEST_SUITE ( GetTickersForLetter )
 
 BOOST_AUTO_TEST_CASE( test )
 {
-  std::shared_ptr<ostream> fileStream = std::make_shared<ostream>();
-
   CrawlTickers* crawlTickers = new CrawlTickers();
   int result;
-  std::string file = "ticker";
   char letter = 'A';
-  file += letter;
-  file += ".csv";
-  result = crawlTickers->getTickersForLetter(fileStream, file, letter);
+  result = crawlTickers->getTickersForLetter(letter);
   BOOST_REQUIRE(result == 0);
 }
 

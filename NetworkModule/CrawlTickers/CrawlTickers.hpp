@@ -13,26 +13,30 @@ namespace NetworkModule
   class CrawlTickers;
 }
 
+// Prices will be calculated using integers
+// and accuracy will be to 4 orders of magnitude
 struct NetworkModule::ticker{
   std::string symbol;
-  const char* name;
-  int32_t lastSale;
-  uint32_t marketCap;
-  const char* adrTso;
+  std::string name;
+  std::string sector;
+  std::string industry;
+  std::string summaryQuote;
+  std::string adrTso;
+  uint32_t lastSale;
+  unsigned long marketCap;
   uint32_t ipoYear;
-  const char* sector;
-  const char* industry;
-  const char* summaryQuote;
 };
 
 class NetworkModule::CrawlTickers
 {
   private:
-    std::map<std::string, ticker*> tickers;
+    std::map<std::string, struct ticker*> tickers;
+    void buildTicker(stringstreambuf*);
+    void setTickerProp(int, struct ticker*, std::string);
   public:
     CrawlTickers();
     ~CrawlTickers();
     std::map<std::string, ticker*> getTickers();
     int downloadTickers();
-    int getTickersForLetter(std::shared_ptr<ostream>, std::string, char);
+    int getTickersForLetter(char);
 };

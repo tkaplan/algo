@@ -7,14 +7,31 @@
 
 BOOST_AUTO_TEST_SUITE ( DownloadTickers )
 
-BOOST_AUTO_TEST_CASE( get_all_tests )
+BOOST_AUTO_TEST_CASE( tickers )
 {
   NetworkModule::CrawlTickers* crawlTickers = new NetworkModule::CrawlTickers();
   int result = crawlTickers->downloadTickers();
   BOOST_REQUIRE(result == 0);
   auto tickers = crawlTickers->getTickers();
-  auto ticker = tickers["GAS"];
-  std::cout << ticker->name << std::endl;
+  std::string symbol;
+  while(true)
+  {
+    try
+    {
+      std::cout << "Which ticker do you want to see?" << std::endl;
+      std::cin >> symbol;
+      auto ticker = tickers[symbol];
+      std::cout << "Name: " << ticker->name << std::endl;
+      std::cout << "Last Sale: " << ticker->lastSale << std::endl;
+      std::cout << "Market Capital: " << ticker->marketCap << std::endl;
+      std::cout << "Industry: " << ticker->industry << std::endl;
+    }
+    catch(const std::exception &e)
+    {
+      std::cout << "An exception" << std::endl;
+    }
+
+  }
 }
 
 BOOST_AUTO_TEST_SUITE_END()
